@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lab 4</title>
+
+        <center><h1>Lab 4 Layer Control Hawaii 2017</h1></center>
+        <center><h5>Created at Northeastern Illinois University</h5></center>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin=""/>
+
+        <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+        integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+        crossorigin=""></script>
+
+        <script type="text/javascript" src="data.js"></script>
+
+        <script type="text/javascript" src="data1.js"></script>
+
+        <link rel="icon" href="island.png" >
+
+    <style type="text/css">
+        html, body { margin: 0; padding: 0; height: 95%; }
+        #map { min-height: 95%; }
+
+      /* Optional: adjust the values below to change the appearance of the legend */
+      .legend {
+      padding: 6px 8px;
+      line-height: 18px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 5px;
+      }
+
+      /* Optional: adjust the values below to change the appearance of the legend color boxes */
+      .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+      }
+
+    </style>
+
+    </head>
+
+    <body>
+
+      <body style="background-color:powderblue;">
+
+
+        <div id="map"></div>
+
+        <script type="text/javascript">
+
+          var map = L.map('map', {
+              center: [20.5433428,-157.49686], // coordinates lat and long
+              zoom: 8
+          });
+
+         var streets = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.streets',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var canvas = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.light',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var dark = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.dark',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var street = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.streets-satellite',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var hike = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.run-bike-hike',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var wheatpaste = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.wheatpaste',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var streetsbasic = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.streets-basic',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var comic = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.comic',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var outdoors = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.outdoors',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var pencil = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.pencil',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var pirates = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.pirates',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var emerald = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.emerald',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var highcontrast = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.high-contrast',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         }).addTo(map);
+
+         var imagery = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+           attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+           maxZoom: 11,
+           minZoom: 5,
+           id: 'mapbox.satellite',
+           accessToken:'pk.eyJ1IjoiZS1jb2JsZSIsImEiOiJjamxmcnViY3EwenU3M3dveWljN3B5bnM4In0.aImb9yimk0Qc-0OTeqlzKg'
+         });
+
+
+         function getColor(value) {
+           return value > 622560676   ? '#253494':
+                  value > 130599213   ? '#2c7fb8':
+                  value > 46441598    ? '#41b6c4':
+                  value > 14199216    ? '#7fcdbb':
+                  value > 500000      ? '#c7e9b4':
+                                        '#ffffcc';
+          }
+
+          function style(feature){
+            return {
+            fillColor: getColor(feature.properties.Shape_Area),   // pop_den is the field name for the population density data
+            weight: 2,
+            opacity: 1,
+            color: 'gray',
+            fillOpacity: 0.9
+            };
+          }
+
+         var landowners = L.geoJson(data, {style:style}).addTo(map);
+
+         var legend = L.control({position: 'bottomright'}); // Try the other three corners if you like.
+
+                      legend.onAdd = function (map) {
+
+                          var div = L.DomUtil.create('div', 'legend'),
+                              grades = [0, 500000, 14199216, 46441598, 130599213, 622560676]; // The break values to define the intervals of population, note we begin from 0 here
+
+                          div.innerHTML = '<b>Large Landowners 2017 <br> Per Square Acre<br></b>'; // The legend title, in this case it's Population Density 2011
+
+                          // Loop through our the classes and generate a label with a colored square for each interval.
+                          // If you are creating a similar choropleth map, you do not need to change lines below.
+                          for (var i = 0; i < grades.length; i++) {
+                              div.innerHTML +=
+                              '<i style="background:' + getColor(grades[i] + 1) + '"></i>' +
+                              grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                          }
+
+                          return div;
+                      };
+
+                    legend.addTo(map);
+
+          var Honolulu = L.marker([21.3164251,-157.8594607]).bindPopup('This is Honolulu, HI.'),
+              KailuaKona = L.marker([19.6643179,-156.0255674]).bindPopup('This is Kailua-Kona, HI.'),
+              Hilo = L.marker([19.6865437,-155.2300207]).bindPopup('This is Hilo, HI.'),
+              Lahaina = L.marker([20.887858,-156.709317]).bindPopup('This is Lahaina, HI.');
+
+          var cities = L.layerGroup([Honolulu, KailuaKona, Hilo, Lahaina]);
+
+          var dams = L.geoJson(data1, {style:style}).addTo(map);
+
+          var basemaps = {
+              "Streets": streets,
+              "Light Canvas": canvas,
+              "Dark": dark,
+              "Streets Satellite": street,
+              "Hike": hike,
+              "Wheatpaste": wheatpaste,
+              "Streets Basic": streetsbasic,
+              "Comic": comic,
+              "Outdoors": outdoors,
+              "Pencil": pencil,
+              "Pirates": pirates,
+              "Emerald": emerald,
+              "High Contrast": highcontrast,
+              "Satellite Imagery": imagery
+
+          };
+
+          var overlaymaps = {
+              "Hawaii Landowners": landowners,
+              "Cities": cities,
+              "Dams": dams
+          };
+
+          L.control.layers(basemaps, overlaymaps).addTo(map);
+
+          // Removing the legend when the layer is removed
+map.on('overlayremove', function(eventLayer){
+  if (eventLayer.name == 'Hawaii Landowners'){ // We use the key/display name to refer to the layer
+    map.removeControl(legend); // legend is the variable name of the layer legend
+  }
+});
+
+// Adding the legend when the layer is added
+map.on('overlayadd', function(eventLayer){
+  if (eventLayer.name == 'Hawaii Landowners'){
+    legend.addTo(map);
+  }
+});
+
+        </script>
+   </body>
+</html>
